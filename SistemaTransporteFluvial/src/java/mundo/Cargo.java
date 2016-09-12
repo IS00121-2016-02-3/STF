@@ -2,6 +2,7 @@ package mundo;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *                                  Universidad Piloto de Colombia
@@ -49,9 +50,10 @@ public class Cargo extends Fluvial
     //---------------------------------------------------------------------------------------------------------------------//
     //--------------------------------------------Constructor--------------------------------------------------------------//
     //---------------------------------------------------------------------------------------------------------------------//
-    public Cargo(int cod,boolean libre,double latitud,double longitud,int tiempoRecorrido,int codigoPuerto,int cargaActual)
+    public Cargo(int cod,boolean libre,double latitud,double longitud,int tiempoRecorrido,int codigoPuerto,int cargaActual
+    ,Date horaSalida,Date horaLlegada)
     {
-        super(cod,libre,latitud,longitud,tiempoRecorrido,codigoPuerto);
+        super(cod,libre,latitud,longitud,tiempoRecorrido,codigoPuerto,horaSalida,horaLlegada);
         this.cargaActual=cargaActual;
     }
     //----------------------------------------------------------------------------------------------------------------------//

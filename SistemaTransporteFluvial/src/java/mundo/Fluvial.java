@@ -65,7 +65,8 @@ public class Fluvial
     //---------------------------------------------------------------------------------------------------------------------//
     //--------------------------------------------Contructor---------------------------------------------------------------//
     //---------------------------------------------------------------------------------------------------------------------//
-    public Fluvial(int codigo,boolean libre,double lat,double lon,int tiempoRecorrido,int codigoPuerto)
+    public Fluvial(int codigo,boolean libre,double lat,double lon,int tiempoRecorrido,int codigoPuerto,Date horaSalida
+            ,Date horaLLegada)
     {
         this.codigo=codigo;
         this.latitud=lat;
@@ -73,6 +74,8 @@ public class Fluvial
         this.libre=libre;
         this.tiempoRecorrido=tiempoRecorrido;
         this.codigo=codigoPuerto;
+        this.horaSalida=horaSalida;
+        this.horaLlegada=horaLLegada;
     }
      //---------------------------------------------------------------------------------------------------------------------//
     //--------------------------------------------Metodos---------------------------------------------------------------//

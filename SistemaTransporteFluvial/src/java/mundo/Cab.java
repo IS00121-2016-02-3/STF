@@ -2,6 +2,7 @@ package mundo;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *                                  Universidad Piloto de Colombia
@@ -47,9 +48,10 @@ public class Cab extends Fluvial
     //---------------------------------------------------------------------------------------------------------------------//
     //--------------------------------------------Constructor--------------------------------------------------------------//
     //---------------------------------------------------------------------------------------------------------------------//
-    public Cab(int cod,boolean libre,double latitud,double longitud,int tiempoRecorrido,int codigoPuerto,boolean panico)
+    public Cab(int cod,boolean libre,double latitud,double longitud,int tiempoRecorrido,int codigoPuerto,boolean panico
+    ,Date horaSalida,Date horaLlegada)
     {
-        super(cod,libre,latitud,longitud,tiempoRecorrido,codigoPuerto);
+        super(cod,libre,latitud,longitud,tiempoRecorrido,codigoPuerto,horaSalida,horaLlegada);
         this.panico=panico;       
     }
     //---------------------------------------------------------------------------------------------------------------------//

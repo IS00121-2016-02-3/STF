@@ -258,7 +258,8 @@ public class SistemaTransporteFluvial
             while (cursor.next()) 
             {
                 Passenger temp=new Passenger(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
-                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7),resultado.getBoolean(8));
+                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7),resultado.getBoolean(8)
+                ,resultado.getInt(9));
                 embarcacionesPassenger.add(temp);
             } 
         } 
@@ -345,7 +346,8 @@ public class SistemaTransporteFluvial
             while (cursor.next()) 
             {
                 Passenger temp=new Passenger(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
-                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7),resultado.getBoolean(8));
+                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7),resultado.getBoolean(8)
+                ,resultado.getInt(9));
                 passDisponibles.add(temp);
             } 
         } 
