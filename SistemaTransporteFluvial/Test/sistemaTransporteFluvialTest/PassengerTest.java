@@ -38,7 +38,7 @@ public class PassengerTest extends TestCase
     {
          conexion=new Conexion();
         conexion.crearConexion();
-        stf=new SistemaTransporteFluvial(conexion.getConexion());
+        stf=new SistemaTransporteFluvial(conexion);
     }
     /**
      * Se construye un fluvial passenger con una ruta asignada en estado libre,
