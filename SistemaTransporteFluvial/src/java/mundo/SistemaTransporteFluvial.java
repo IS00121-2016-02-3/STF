@@ -76,27 +76,17 @@ public class SistemaTransporteFluvial
     private ArrayList<Puerto> puertos;
     
     //-------------------------------------------Atributos BD--------------------------------------------------------------//
-        /*
-         * permite interactuar con la base de datos por medio de consultas
-         */
-        private PreparedStatement preInsertar;
-        /**
-         * maneja las consultas
-         */
-        private ResultSet resultado;
-        /**
-         * maneja las conexiones
-         */
-        private Statement statement;
         
-        private Connection conexion;
+        
+        private Conexion conexion;
+        
     
     //---------------------------------------------------------------------------------------------------------------------//
     //--------------------------------------------Constructor--------------------------------------------------------------//
     //---------------------------------------------------------------------------------------------------------------------//
-    public SistemaTransporteFluvial(Connection conexion)
+    public SistemaTransporteFluvial()
     {
-        this.conexion=conexion;
+       
         embarcacionesCab=new ArrayList<>();
         embarcacionesCargo=new ArrayList<>();
         embarcacionesPassenger=new ArrayList<>();
@@ -105,44 +95,32 @@ public class SistemaTransporteFluvial
         clientes=new ArrayList<>();
         administradores=new ArrayList<>();
         operadores=new ArrayList<>();
-        try 
-        {                  
-            statement= conexion.createStatement();
-            
-            cargarCabs();
-            cargarCargos();
-            cargarPassengers();
-            cargarClientes();
-            cargarOperadores();
-            cargarAdministradores();
-            cargarSensores();
-            cargarPuertos();
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(SistemaTransporteFluvial.class.getName()).log(Level.SEVERE, null, ex);
-        }	
+        
+        cargarCabs();
+        cargarCargos();
+        cargarPassengers();
+        cargarClientes();
+        cargarOperadores();
+        cargarAdministradores();
+        cargarSensores();
+        cargarPuertos();        	
     }
     //---------------------------------------------------------------------------------------------------------------------//
     //--------------------------------------------Metodos------------------------------------------------------------------//
     //---------------------------------------------------------------------------------------------------------------------//
-    public Connection darConexion()
-    {
-        return conexion;
-    }
-    
+        
     public void cargarClientes()
     {
         try 
         {
-            ResultSet resultado = statement.executeQuery("SELECT * FROM CLIENTE");
+            ResultSet cursor = conexion.ejecutarSQLSelect("SELECT * FROM CLIENTE");
 		
-            while (resultado.next()) 
+            while (cursor.next()) 
             {		
-                Cliente nuevo=new Cliente(resultado.getInt(1), resultado.getString(2),resultado.getString(3),
-                        resultado.getString(4),resultado.getString(5),resultado.getString(6),resultado.getString(7),
-                        resultado.getInt(8),resultado.getInt(9),resultado.getInt(10),resultado.getInt(11),
-                        resultado.getInt(12));
+                Cliente nuevo=new Cliente(cursor.getInt(1), cursor.getString(2),cursor.getString(3),
+                        cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7),
+                        cursor.getInt(8),cursor.getInt(9),cursor.getInt(10),cursor.getInt(11),
+                        cursor.getInt(12));
                 clientes.add(nuevo);
             }
         } 
@@ -155,7 +133,7 @@ public class SistemaTransporteFluvial
     {
         try 
         {
-            ResultSet resultado = statement.executeQuery("SELECT * FROM OPERADOR");
+            ResultSet resultado = conexion.ejecutarSQLSelect("SELECT * FROM OPERADOR");
 		
             while (resultado.next()) 
             {		
@@ -174,7 +152,7 @@ public class SistemaTransporteFluvial
     {
         try 
         {
-            ResultSet resultado = statement.executeQuery("SELECT * FROM ADMINISTRADOR");
+            ResultSet resultado = conexion.ejecutarSQLSelect("SELECT * FROM ADMINISTRADOR");
 		
             while (resultado.next()) 
             {		
@@ -192,7 +170,7 @@ public class SistemaTransporteFluvial
     {
         try 
         {
-            ResultSet resultado = statement.executeQuery("SELECT * FROM SENSOR");
+            ResultSet resultado = conexion.ejecutarSQLSelect("SELECT * FROM SENSOR");
 		
             while (resultado.next()) 
             {		
@@ -209,7 +187,7 @@ public class SistemaTransporteFluvial
     {
         try 
         {
-            ResultSet resultado = statement.executeQuery("SELECT * FROM SENSOR");
+            ResultSet resultado = conexion.ejecutarSQLSelect("SELECT * FROM SENSOR");
 		
             while (resultado.next()) 
             {		
@@ -226,7 +204,7 @@ public class SistemaTransporteFluvial
     {
         try 
         {
-            ResultSet resultado = statement.executeQuery("SELECT * FROM PUERTO");
+            ResultSet resultado = conexion.ejecutarSQLSelect("SELECT * FROM PUERTO");
 		
             while (resultado.next()) 
             {		
@@ -243,12 +221,12 @@ public class SistemaTransporteFluvial
     {
         try 
         {
-            ResultSet cursor=statement.executeQuery("SELECT * FROM CARGO");
+            ResultSet cursor=conexion.ejecutarSQLSelect("SELECT * FROM CARGO");
             while (cursor.next()) 
             {
-                Cargo temp=new Cargo(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
-                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7),
-                resultado.getDate(8),resultado.getDate(9));
+                Cargo temp=new Cargo(cursor.getInt(1), cursor.getBoolean(2), cursor.getDouble(3), 
+                        cursor.getDouble(4), cursor.getInt(5),cursor.getInt(6),cursor.getInt(7),
+                cursor.getDate(8),cursor.getDate(9));
                 embarcacionesCargo.add(temp);
             } 
         } 
@@ -261,12 +239,12 @@ public class SistemaTransporteFluvial
     {
         try 
         {
-            ResultSet cursor=statement.executeQuery("SELECT * FROM PASSENGER");
+            ResultSet cursor=conexion.ejecutarSQLSelect("SELECT * FROM PASSENGER");
             while (cursor.next()) 
             {
-                Passenger temp=new Passenger(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
-                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7),resultado.getBoolean(8)
-                ,resultado.getInt(9),resultado.getDate(10),resultado.getDate(11));
+                Passenger temp=new Passenger(cursor.getInt(1), cursor.getBoolean(2), cursor.getDouble(3), 
+                        cursor.getDouble(4), cursor.getInt(5),cursor.getInt(6),cursor.getInt(7),cursor.getBoolean(8)
+                ,cursor.getInt(9),cursor.getDate(10),cursor.getDate(11));
                 embarcacionesPassenger.add(temp);
             } 
         } 
@@ -308,12 +286,12 @@ public class SistemaTransporteFluvial
         ArrayList<Cab> cabsDisponibles=new ArrayList<Cab>();        
         try 
         {
-            ResultSet cursor=statement.executeQuery("SELECT * FROM CAB WHERE ID_PUERTO="+idPuerto+" AND DISPONIBLE=TRUE");
+            ResultSet cursor=conexion.ejecutarSQLSelect("SELECT * FROM CAB WHERE ID_PUERTO="+idPuerto+" AND DISPONIBLE=TRUE");
             while (cursor.next()) 
             {
-                Cab temp=new Cab(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
-                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getBoolean(7),
-                resultado.getDate(8),resultado.getDate(9));
+                Cab temp=new Cab(cursor.getInt(1), cursor.getBoolean(2), cursor.getDouble(3), 
+                        cursor.getDouble(4), cursor.getInt(5),cursor.getInt(6),cursor.getBoolean(7),
+                cursor.getDate(8),cursor.getDate(9));
                 cabsDisponibles.add(temp);
             } 
         } 
@@ -329,12 +307,12 @@ public class SistemaTransporteFluvial
         
         try 
         {
-            ResultSet cursor=statement.executeQuery("SELECT * FROM CARGO WHERE ID_PUERTO="+idPuerto+" AND DISPONIBLE=TRUE");
+            ResultSet cursor=conexion.ejecutarSQLSelect("SELECT * FROM CARGO WHERE ID_PUERTO="+idPuerto+" AND DISPONIBLE=TRUE");
             while (cursor.next()) 
             {
-                Cargo temp=new Cargo(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
-                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7)
-                ,resultado.getDate(8),resultado.getDate(9));
+                Cargo temp=new Cargo(cursor.getInt(1), cursor.getBoolean(2), cursor.getDouble(3), 
+                        cursor.getDouble(4), cursor.getInt(5),cursor.getInt(6),cursor.getInt(7)
+                ,cursor.getDate(8),cursor.getDate(9));
                 cargoDisponibles.add(temp);
             } 
         } 
@@ -350,12 +328,12 @@ public class SistemaTransporteFluvial
         
         try 
         {
-            ResultSet cursor=statement.executeQuery("SELECT * FROM PASSENGER WHERE ID_PUERTO="+idPuerto+" AND DISPONIBLE=TRUE");
+            ResultSet cursor=conexion.ejecutarSQLSelect("SELECT * FROM PASSENGER WHERE ID_PUERTO="+idPuerto+" AND DISPONIBLE=TRUE");
             while (cursor.next()) 
             {
-                Passenger temp=new Passenger(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
-                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7),resultado.getBoolean(8)
-                ,resultado.getInt(9),resultado.getDate(10),resultado.getDate(11));
+                Passenger temp=new Passenger(cursor.getInt(1), cursor.getBoolean(2), cursor.getDouble(3), 
+                        cursor.getDouble(4), cursor.getInt(5),cursor.getInt(6),cursor.getInt(7),cursor.getBoolean(8)
+                ,cursor.getInt(9),cursor.getDate(10),cursor.getDate(11));
                 passDisponibles.add(temp);
             } 
         } 
