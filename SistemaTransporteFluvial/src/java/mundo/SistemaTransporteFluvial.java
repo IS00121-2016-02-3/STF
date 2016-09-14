@@ -247,7 +247,8 @@ public class SistemaTransporteFluvial
             while (cursor.next()) 
             {
                 Cargo temp=new Cargo(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
-                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7));
+                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7),
+                resultado.getDate(8),resultado.getDate(9));
                 embarcacionesCargo.add(temp);
             } 
         } 
@@ -265,7 +266,7 @@ public class SistemaTransporteFluvial
             {
                 Passenger temp=new Passenger(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
                         resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7),resultado.getBoolean(8)
-                ,resultado.getInt(9));
+                ,resultado.getInt(9),resultado.getDate(10),resultado.getDate(11));
                 embarcacionesPassenger.add(temp);
             } 
         } 
@@ -302,17 +303,17 @@ public class SistemaTransporteFluvial
         
     }    
 
-    public ArrayList<Cab> buscarCabDisponibles(int idPuerto, ) 
+    public ArrayList<Cab> buscarCabDisponibles(int idPuerto ) 
     {
-        ArrayList<Cab> cabsDisponibles=null;
-        
+        ArrayList<Cab> cabsDisponibles=new ArrayList<Cab>();        
         try 
         {
             ResultSet cursor=statement.executeQuery("SELECT * FROM CAB WHERE ID_PUERTO="+idPuerto+" AND DISPONIBLE=TRUE");
             while (cursor.next()) 
             {
                 Cab temp=new Cab(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
-                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getBoolean(7));
+                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getBoolean(7),
+                resultado.getDate(8),resultado.getDate(9));
                 cabsDisponibles.add(temp);
             } 
         } 
@@ -322,7 +323,7 @@ public class SistemaTransporteFluvial
         }        
         return cabsDisponibles;
     }
-    public ArrayList<Cargo> buscarCargoDisponibles(int idPuerto, ) 
+    public ArrayList<Cargo> buscarCargoDisponibles(int idPuerto ) 
     {
         ArrayList<Cargo> cargoDisponibles=null;
         
@@ -332,7 +333,8 @@ public class SistemaTransporteFluvial
             while (cursor.next()) 
             {
                 Cargo temp=new Cargo(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
-                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7));
+                        resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7)
+                ,resultado.getDate(8),resultado.getDate(9));
                 cargoDisponibles.add(temp);
             } 
         } 
@@ -342,7 +344,7 @@ public class SistemaTransporteFluvial
         }        
         return cargoDisponibles;
     }
-    public ArrayList<Passenger> buscarPassengerDisponibles(int idPuerto, ) 
+    public ArrayList<Passenger> buscarPassengerDisponibles(int idPuerto ) 
     {
         ArrayList<Passenger> passDisponibles=null;
         
@@ -353,7 +355,7 @@ public class SistemaTransporteFluvial
             {
                 Passenger temp=new Passenger(resultado.getInt(1), resultado.getBoolean(2), resultado.getDouble(3), 
                         resultado.getDouble(4), resultado.getInt(5),resultado.getInt(6),resultado.getInt(7),resultado.getBoolean(8)
-                ,resultado.getInt(9));
+                ,resultado.getInt(9),resultado.getDate(10),resultado.getDate(11));
                 passDisponibles.add(temp);
             } 
         } 
