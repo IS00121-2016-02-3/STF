@@ -1,6 +1,7 @@
 package mundo;
 
 
+import conexion.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -87,13 +88,15 @@ public class SistemaTransporteFluvial
          * maneja las conexiones
          */
         private Statement statement;
-    
+        
+        private Connection conexion;
     
     //---------------------------------------------------------------------------------------------------------------------//
     //--------------------------------------------Constructor--------------------------------------------------------------//
     //---------------------------------------------------------------------------------------------------------------------//
     public SistemaTransporteFluvial(Connection conexion)
     {
+        this.conexion=conexion;
         embarcacionesCab=new ArrayList<>();
         embarcacionesCargo=new ArrayList<>();
         embarcacionesPassenger=new ArrayList<>();
@@ -106,14 +109,14 @@ public class SistemaTransporteFluvial
         {                  
             statement= conexion.createStatement();
             
-            cargarCabs(conexion);
-            cargarCargos(conexion);
-            cargarPassengers(conexion);
-            cargarClientes(conexion);
-            cargarOperadores(conexion);
-            cargarAdministradores(conexion);
-            cargarSensores(conexion);
-            cargarPuertos(conexion);
+            cargarCabs();
+            cargarCargos();
+            cargarPassengers();
+            cargarClientes();
+            cargarOperadores();
+            cargarAdministradores();
+            cargarSensores();
+            cargarPuertos();
         } 
         catch (SQLException ex) 
         {
@@ -123,9 +126,12 @@ public class SistemaTransporteFluvial
     //---------------------------------------------------------------------------------------------------------------------//
     //--------------------------------------------Metodos------------------------------------------------------------------//
     //---------------------------------------------------------------------------------------------------------------------//
+    public Connection darConexion()
+    {
+        return conexion;
+    }
     
-    
-    public void cargarClientes(Connection conexion)
+    public void cargarClientes()
     {
         try 
         {
@@ -145,7 +151,7 @@ public class SistemaTransporteFluvial
             Logger.getLogger(SistemaTransporteFluvial.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
-    public void cargarOperadores(Connection conexion)
+    public void cargarOperadores()
     {
         try 
         {
@@ -164,7 +170,7 @@ public class SistemaTransporteFluvial
             Logger.getLogger(SistemaTransporteFluvial.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
-    public void cargarAdministradores(Connection conexion)
+    public void cargarAdministradores()
     {
         try 
         {
@@ -182,7 +188,7 @@ public class SistemaTransporteFluvial
             Logger.getLogger(SistemaTransporteFluvial.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
-    public void cargarSensores(Connection conexion)
+    public void cargarSensores()
     {
         try 
         {
@@ -199,7 +205,7 @@ public class SistemaTransporteFluvial
             Logger.getLogger(SistemaTransporteFluvial.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
-    public void cargarPuertos(Connection conexion)
+    public void cargarPuertos()
     {
         try 
         {
@@ -216,7 +222,7 @@ public class SistemaTransporteFluvial
             Logger.getLogger(SistemaTransporteFluvial.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
-    private void cargarCabs(Connection conexion)
+    private void cargarCabs()
     {
         try 
         {
@@ -233,7 +239,7 @@ public class SistemaTransporteFluvial
             Logger.getLogger(SistemaTransporteFluvial.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
-    public void cargarCargos(Connection conexion)
+    public void cargarCargos()
     {
         try 
         {
@@ -250,7 +256,7 @@ public class SistemaTransporteFluvial
             Logger.getLogger(SistemaTransporteFluvial.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
-    public void cargarPassengers(Connection conexion)
+    public void cargarPassengers()
     {
         try 
         {
@@ -296,7 +302,7 @@ public class SistemaTransporteFluvial
         
     }    
 
-    public ArrayList<Cab> buscarCabDisponibles(int idPuerto, Connection conexion) 
+    public ArrayList<Cab> buscarCabDisponibles(int idPuerto, ) 
     {
         ArrayList<Cab> cabsDisponibles=null;
         
@@ -316,7 +322,7 @@ public class SistemaTransporteFluvial
         }        
         return cabsDisponibles;
     }
-    public ArrayList<Cargo> buscarCargoDisponibles(int idPuerto, Connection conexion) 
+    public ArrayList<Cargo> buscarCargoDisponibles(int idPuerto, ) 
     {
         ArrayList<Cargo> cargoDisponibles=null;
         
@@ -336,7 +342,7 @@ public class SistemaTransporteFluvial
         }        
         return cargoDisponibles;
     }
-    public ArrayList<Passenger> buscarPassengerDisponibles(int idPuerto, Connection conexion) 
+    public ArrayList<Passenger> buscarPassengerDisponibles(int idPuerto, ) 
     {
         ArrayList<Passenger> passDisponibles=null;
         
@@ -356,5 +362,5 @@ public class SistemaTransporteFluvial
             Logger.getLogger(SistemaTransporteFluvial.class.getName()).log(Level.SEVERE, null, ex);
         }        
         return passDisponibles;
-    }
+    }   
 }

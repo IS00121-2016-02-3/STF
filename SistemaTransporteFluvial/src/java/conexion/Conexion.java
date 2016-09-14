@@ -64,7 +64,7 @@ public class Conexion
        try 
        {
           Class.forName("com.mysql.jdbc.Driver");
-          conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/stf","root","root");
+          conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/basededatos stf","root","root");
        } 
        catch (SQLException ex) 
        {
